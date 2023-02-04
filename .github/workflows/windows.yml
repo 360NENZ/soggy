@@ -21,7 +21,7 @@ jobs:
     - shell: msys2 {0}
       name: Configure CMake
       run: |
-       pacman -S ${MINGW_PACKAGE_PREFIX}-{toolchain,cmake,protobuf,lua}
+       pacman -S mingw-w64-x86_64-binutils-{toolchain,cmake,protobuf,lua}
        cmake -B build -G "Unix Makefiles"
       
     - shell: msys2 {0}
