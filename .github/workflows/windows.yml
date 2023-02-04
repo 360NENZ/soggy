@@ -15,14 +15,21 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Configure protobuf
-      run: vcpkg install protobuf[zlib] protobuf[zlib]:x64-windows
+    - name: Setup MSYS2
+      uses: msys2/setup-msys2@v2
+
+    - shell: msys2 {0}
+      name: Configure CMake
+      run: |
+       pacman -S ${MINGW_PACKAGE_PREFIX}-{toolchain,cmake,protobuf,lua}
+       cmake -B build -G "Unix Makefiles"
       
-    - name: Build
-      run: cmake -B out/build/x64-Release && cmake --build out/build/x64-Release -j8
+    - shell: msys2 {0}
+      name: Build
+      run: cmake --build build -j8
 
     - name: Upload soggy latest artifact
       uses: actions/upload-artifact@v3.1.0
       with:
         name: soggy-windows
-        path: .out/build/x64-Release/soggy.exe
+        path: ./build/soggy.exe
