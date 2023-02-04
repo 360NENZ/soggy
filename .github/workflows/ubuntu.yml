@@ -21,7 +21,7 @@ jobs:
     - name: Build
       run: cmake -B build && cmake --build build -j8
 
-    - name: Upload build
+    - name: Upload soggy latest artifact
       uses: actions/upload-artifact@v3
       with:
         name: soggy-ubuntu

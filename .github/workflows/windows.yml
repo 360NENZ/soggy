@@ -1,0 +1,31 @@
+name: Build Server exe
+
+on:
+  push:
+    branches: [ "mistress" ]
+  pull_request:
+    branches: [ "mistress" ]
+
+jobs:
+  build:
+    name: "Build Server exe"
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - name: Build c++ project
+      uses: nicledomaS/cmake_build_action@v1.4
+
+    - name: Configure CMake
+      run: vcpkg install protobuf
+      
+    - name: Build
+      run: cmake -B out/build/x64-Release && cmake --build out/build/x64-Release -j8
+
+    - name: Upload soggy latest artifact
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        name: soggy-windows
+        path: .out/build/x64-Release/soggy.exe
