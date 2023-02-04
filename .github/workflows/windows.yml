@@ -21,7 +21,8 @@ jobs:
     - shell: msys2 {0}
       name: Configure CMake
       run: |
-       pacman -S mingw-w64-x86_64-{toolchain,cmake,protobuf,lua}
+       pacman -S ${MINGW_PACKAGE_PREFIX}-{binutils,crt-git,gcc,ada,gcc-fortran,gcc-libgfortran,gcc-libs,gcc-objc,gdb,gdb-multiarch,headers-git,libgccjit,libmangle-git,libwinpthread-git,make,pkgconf,tools-git,winpthreads-git,winstorecompat-git}
+       pacman -S ${MINGW_PACKAGE_PREFIX}-{cmake,protobuf,lua}
        cmake -B build -G "Unix Makefiles"
       
     - shell: msys2 {0}
