@@ -17,6 +17,7 @@ jobs:
       
     - name: Configure CMake
       run: |
+       export DISPLAY=:0
        sudo apt install pacman build-essential cmake libprotobuf-dev protobuf-compiler liblua5.3-dev
        pacman -S cmake protobuf lua
        
